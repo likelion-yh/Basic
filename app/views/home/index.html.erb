@@ -3,23 +3,45 @@
 <h1>Comment board</h1>
 
 <form action="/home/write" method= "post">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" name="title" placeholder="Write the title.">
-  </div>
-  <div class="form-group">
-    <label for="Content">Content</label>
-    <textarea type="text" class="form-control" name="content" placeholder="Write the content." style="resize:none;" rows="5"></textarea>
-  </div>
- <center> <button type="submit" class="btn btn-default">Submit</button> </center>
-  </form>
-<p style="margin-top:5%;">
-  <% @post.each do |p| %>
-    <div class="well">
-       <label for="reply_title"><%= p.title_db %></label> <br>
-       <%= p.content_db %>
-       <a href="/home/delete/<%= p.id%>">[삭제]</a>
-    </div> <!-- well -->
-  <% end %>
-</p> 
+   <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" name="title" placeholder="Write the title.">
+   </div>
+
+   <div class="form-group">
+      <label for="Content">Content</label>
+      <textarea type="text" class="form-control" name="content" placeholder="Write the content." style="resize:none;" rows="5"></textarea>
+    </div>
+
+   <center> <button type="submit" class="btn btn-default">Submit</button> </center>
+  
+</form>
+</div>
+
+<div class="container">
+ <p style="margin-top:5%;">
+   
+   <% @post.each do |p| %>
+      <div class="well">
+         <label for="reply_title"><%= p.title_db %></label> <br>
+         <%= p.content_db %>
+         <a href="/home/delete/<%= p.id%>">[삭제]</a>
+
+        <form action="/home/reply_write" method="post">
+        <div class="form-group">
+        <input type="hidden" value="<%=p.id%>" name="post_id">
+        <input type="text" class="form-control" name="reply_content" placeholder="Write the reply.">
+       
+       <button type="submit" class="btn btn-default">Submit</button>
+       </div> <!-- form-group -->
+</form>
+
+       <% p.replies.each do |r| %>
+          <%= r.reply_content%> <hr> 
+       <%end%>    
+
+      </div> <!-- well -->
+     <% end %>
+</p>
+ 
 </div> <!-- container -->

@@ -5,6 +5,7 @@ Basic::Application.routes.draw do
   get "home/list"
   get "home/delete/:post_id" => "home#delete"
 
+  post "home/reply_write"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
